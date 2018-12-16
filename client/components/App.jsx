@@ -23,7 +23,7 @@ class App extends React.Component {
           url: 'https://picsum.photos/800/800/?image=577'
         },
       },
-      carouselActive: true
+      carouselActive: false
     }
   }
 
