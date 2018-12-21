@@ -1,4 +1,5 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
 import PhotoService from './components/App.jsx';
 
-window.PhotoService = PhotoService;
-
+ReactDOM.render(<PhotoService />, document.getElementById('gallery'));
