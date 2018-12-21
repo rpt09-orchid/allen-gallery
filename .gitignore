@@ -24,8 +24,12 @@ coverage
 build/
 dist/
 
-
 database/downloads
+<<<<<<< HEAD
 *.JPG
 
+=======
+
+*.JPG
+>>>>>>> 46680a5ed5f48f54566dd648d36b3e03b20ebd56
 .env
