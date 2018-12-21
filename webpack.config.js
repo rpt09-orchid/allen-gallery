@@ -1,23 +1,24 @@
-const webpack = require('webpack');
 const path = require('path');
-
+const SRC_DIR = path.join(__dirname, '/client');
+const DIST_DIR = path.join(__dirname, '/public');
 module.exports = {
-  context: __dirname + '/client',
-  entry: './index.js',
-  module: {
-    rules: [{
-        test: /\.jsx$/,
-        exclude: /node_modules/,
-        options: {
-          presets: ['react', 'es2015', 'env']
-        },
-        loader: 'babel-loader'
-    }]
-},
+  entry: `${SRC_DIR}/index.js`,
   output: {
-    path: __dirname + '/public',
-    filename: 'app.js',
+    path: DIST_DIR,
+    filename: 'app.js'
+  },
+  module: {
+    rules: [
+      {
+        test: /\.js?/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env', '@babel/preset-react']
+          }
+        }
+      }
+    ]
   }
 };
-
-

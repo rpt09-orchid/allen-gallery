@@ -16,4 +16,4 @@ const Arrow = (props) => {
   }
 }
 
-module.exports = Arrow;
+export default Arrow;

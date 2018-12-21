@@ -1,3 +1,4 @@
+import React from 'react';
 import Arrow from './Arrow.jsx';
 
 class Carousel extends React.Component {
@@ -22,4 +23,4 @@ class Carousel extends React.Component {
   }
 }
 
-module.exports = Carousel;
+export default Carousel;
