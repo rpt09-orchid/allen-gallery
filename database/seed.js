@@ -1,5 +1,11 @@
-const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/gallery');
+require('dotenv').config()
+const db = require('./db')
+const Promise = require('bluebird');
+const readFile = Promise.promisify(require("fs").readFile);
+const utils = require('./dbUtils.js');
+const _ = require('lodash');
+
+const productionBucket = `https://s3.us-east-2.amazonaws.com/elasticbeanstalk-us-east-2-785620446758/property_images/`;
 
 const Schema = mongoose.Schema;
 const PropertySchema = new Schema({
@@ -42,8 +48,6 @@ let generateRandomId = () => {
   return Math.floor(Math.random() * 90000) + 10000;
 }
 
-// And finally, insert the records
-const seedProperties = generateProperties(100);
-db.insertMany(seedProperties).then(() => {
-    console.log('Done insertMany');
-  })
+insertProperties();
+
+//TEST
