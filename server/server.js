@@ -14,7 +14,7 @@ app.use('/:id', express.static(path.join(__dirname, '../public')));
 app.use(cors());
 
 app.listen(port, () => {
-  console.log(`server running at: http://localhost:${port}`);
+  console.log(`server running at port: ${port}`);
 });
 
 app.get('/photos/:id', (req, res) => {
