@@ -16,18 +16,12 @@ Phone: 743 and below
 
 /* Desktop */
 @media (min-width: 1128px) {
-  body {
-    background-color: #000;
-  }
+
 }
 
 
 /* Tablet */
 @media (max-width: 1127px) {
-  body {
-    background-color: #00ff00;
-  }
-
   .grid-container {
     display:grid;
     background-color: #000;
@@ -51,10 +45,6 @@ Phone: 743 and below
 
 /* Phone */
 @media (max-width: 743px) {
-  body {
-    background-color: #ffff00;
-  }
-
   .grid-container {
     display:grid;
     background-color: #000;
