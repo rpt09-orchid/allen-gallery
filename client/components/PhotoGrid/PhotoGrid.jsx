@@ -13,4 +13,4 @@ const PhotoGrid = (props) => {
   )
 }
 
-module.exports = PhotoGrid;
+export default PhotoGrid;

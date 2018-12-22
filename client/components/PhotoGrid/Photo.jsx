@@ -6,4 +6,4 @@ const Photo = (props) => {
   )
 }
 
-module.exports = Photo;
+export default Photo;
