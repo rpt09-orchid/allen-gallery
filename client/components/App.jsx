@@ -1,6 +1,7 @@
 import React from 'react';
 import PhotoGrid from './PhotoGrid/PhotoGrid.jsx';
 import Carousel from './Carousel/Carousel.jsx';
+import './App.css';
 
 class App extends React.Component {
   constructor() {

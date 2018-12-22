@@ -1,5 +1,6 @@
 import React from 'react';
 import Photo from './Photo.jsx';
+import './PhotoGrid.css';
 
 const PhotoGrid = (props) => {
   return (
