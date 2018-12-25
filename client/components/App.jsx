@@ -9,23 +9,53 @@ class App extends React.Component {
     this.state = {
       photos: {
         photo1: {
-          url: 'https://picsum.photos/800/800/?image=172'
+          url: ''
         },
         photo2: {
-          url: 'https://picsum.photos/800/800/?image=271'
+          url: ''
         },
         photo3: {
-          url: 'https://picsum.photos/800/800/?image=370'
+          url: ''
         },
         photo4: {
-          url: 'https://picsum.photos/800/800/?image=473'
+          url: ''
         },
         photo5: {
-          url: 'https://picsum.photos/800/800/?image=577'
+          url: ''
         },
       },
       carouselActive: false
     }
+  }
+
+  componentDidMount() {
+    let id;
+    window.location.pathname !== '/' ? id = window.location.pathname : id = '1';
+
+    fetch(`/photos${id}`)
+    .then((res) => {
+      return res.json();
+    })
+    .then((property) => {
+      const photos = property.data[0].photos;
+      this.setState({photos: {
+        photo1: {
+          url: photos[0].location
+        },
+        photo2: {
+          url: photos[1].location
+        },
+        photo3: {
+          url: photos[2].location
+        },
+        photo4: {
+          url: photos[3].location
+        },
+        photo5: {
+          url: photos[4].location
+        }
+      }})
+    })
   }
 
   toggleCarousel() {
@@ -33,7 +63,6 @@ class App extends React.Component {
   }
 
   render() {
-
     if(this.state.carouselActive) {
       return (
         <div>
