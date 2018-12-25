@@ -32,7 +32,7 @@ class App extends React.Component {
 
   componentDidMount() {
     let id;
-    window.location.pathname !== '/' ? id = window.location.pathname : id = '1';
+    window.location.pathname !== '/' ? id = window.location.pathname : id = '/1';
 
     fetch(`${serviceLocation}/photos${id}`)
     .then((res) => {
