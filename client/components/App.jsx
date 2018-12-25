@@ -26,7 +26,7 @@ class App extends React.Component {
           url: ''
         },
       },
-      carouselActive: false
+      carouselActive: true
     }
   }
 
