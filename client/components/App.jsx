@@ -3,6 +3,8 @@ import PhotoGrid from './PhotoGrid/PhotoGrid.jsx';
 import Carousel from './Carousel/Carousel.jsx';
 import './App.css';
 
+const serviceLocation = 'http://photos.urvjp33d4m.us-west-2.elasticbeanstalk.com'; 
+
 class App extends React.Component {
   constructor() {
     super();
@@ -30,9 +32,9 @@ class App extends React.Component {
 
   componentDidMount() {
     let id;
-    window.location.pathname !== '/' ? id = window.location.pathname : id = '1';
+    window.location.pathname !== '/' ? id = window.location.pathname : id = '/1';
 
-    fetch(`/photos${id}`)
+    fetch(`${serviceLocation}/photos${id}`)
     .then((res) => {
       return res.json();
     })
