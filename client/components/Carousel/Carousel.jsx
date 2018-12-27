@@ -13,7 +13,7 @@ class Carousel extends React.Component {
 
   render() {
     return (
-      <div id="carousel" onClick={this.props.toggleCarousel}>
+      <div id="carousel">
         <div id="carousel-main-container">
           <div className="carousel-arrow-left"><Arrow direction={'left'}/></div>
           <PrimaryPhoto />
@@ -23,5 +23,7 @@ class Carousel extends React.Component {
     )
   }
 }
+
+//onClick={this.props.toggleCarousel}
 
 export default Carousel;
