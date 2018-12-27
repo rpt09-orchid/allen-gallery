@@ -4,11 +4,14 @@ import PrimaryPhoto from './PrimaryPhoto.jsx';
 import './Carousel.css';
 
 class Carousel extends React.Component {
-  constructor() {
+  constructor(props) {
     super();
     this.state = {
-
+      photos: [],
+      primaryPhoto: {url: 'https://picsum.photos/800/500'}
     }
+  }
+  componentDidMount() {
   }
 
   render() {
@@ -16,7 +19,7 @@ class Carousel extends React.Component {
       <div id="carousel">
         <div id="carousel-main-container">
           <div className="carousel-arrow-left"><Arrow direction={'left'}/></div>
-          <PrimaryPhoto />
+          <PrimaryPhoto photo={this.state.primaryPhoto}/>
           <div className="carousel-arrow-right"><Arrow direction={'right'}/></div>
         </div>
       </div>

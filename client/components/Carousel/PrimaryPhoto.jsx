@@ -1,11 +1,12 @@
 import React from 'react';
 import './PrimaryPhoto.css'
+import { PromiseProvider } from 'mongoose';
 
-const PrimaryPhoto = () => {
-
+const PrimaryPhoto = (props) => {
+console.log(props.photo)
   return (
     <div className="carousel-primary-photo">
-      <img src="https://picsum.photos/200/200" />
+      <img src={props.photo.url} />
     </div>
   )
 }
