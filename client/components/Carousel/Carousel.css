@@ -8,6 +8,7 @@
   top: 0;
   left: 0;
   z-index:99;
+  color: #fff;
 }
 
 #carousel-main-container {
@@ -19,11 +20,11 @@
 .carousel-arrow-left {
   margin: auto;
   font-size: 2rem;
-  background-color: #00ff00;
+  cursor: pointer;
 }
 
 .carousel-arrow-right {
   margin: auto;
   font-size: 2rem;
-  background-color: #ff0000
+  cursor: pointer;
 }

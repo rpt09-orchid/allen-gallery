@@ -9,7 +9,8 @@ class Carousel extends React.Component {
     super();
     this.state = {
       photos: [],
-      primaryPhoto: {url: null}
+      activePhoto: 0,
+      ready: false
     }
   }
 
@@ -17,40 +18,54 @@ class Carousel extends React.Component {
     this.forceStateUpdate();
   }
   
-  // This is ghetto. Need to come back and refactor...
   forceStateUpdate() {
     const that = this;
     setTimeout(function() {
       that.setState({
         photos: _.toArray(that.props.photos),
-        primaryPhoto: that.props.photos.photo1
+        activePhoto: 0,
+      }, () => {
+        that.setState({ready: true});
       })
     }, 200); 
   }
 
   slideHandler(e) {
-    if(e.target.id === 'slideLeft') {
-      console.log('Left!')
-    } else if(e.target.id === 'slideRight') {
-      console.log('Right!')
+    // Aliases for readability and economy =================
+    const photos = this.state.photos;
+    const activePhoto = this.state.activePhoto;
+    // =====================================================
+
+    if (e.target.id === 'slidePrevious') {
+      if (activePhoto > 0) {
+        this.setState({ activePhoto: activePhoto - 1 })
+      }
+    } else if (e.target.id === 'slideNext') {
+      if (activePhoto < photos.length - 1) {
+        this.setState({ activePhoto: activePhoto + 1 })
+      }
     }
   }
 
   render() {
     window.photos = this.state.photos;
     window.photosArr = [this.state.photos.photo1]
-    return (
-      <div id="carousel">
-        <div id="carousel-main-container">
-          <div className="carousel-arrow-left"><Arrow direction={'left'} slideHandler={this.slideHandler.bind(this)}/></div>
-          <PrimaryPhoto photo={this.state.primaryPhoto}/>
-          <div className="carousel-arrow-right"><Arrow direction={'right'} slideHandler={this.slideHandler.bind(this)}/></div>
+    if (this.state.ready) {
+      return (
+        <div id="carousel">
+          <div id="carousel-main-container">
+            <div className="carousel-arrow-left"><Arrow direction={'left'} slideHandler={this.slideHandler.bind(this)}/></div>
+            <PrimaryPhoto photo={this.state.photos[this.state.activePhoto]}/>
+            <div className="carousel-arrow-right"><Arrow direction={'right'} slideHandler={this.slideHandler.bind(this)}/></div>
+          </div>
         </div>
-      </div>
-    )
+      )
+    } else {
+      return (
+        <span>Loading Photos</span>
+      )
+    }
   }
 }
-
-//onClick={this.props.toggleCarousel}
 
 export default Carousel;
