@@ -48,11 +48,12 @@ class Carousel extends React.Component {
   }
 
   render() {
-    window.photos = this.state.photos;
-    window.photosArr = [this.state.photos.photo1]
     if (this.state.ready) {
       return (
         <div id="carousel">
+          <div id="carousel-exit-btn">
+            <span onClick={this.props.toggleCarousel}>X</span>
+          </div>
           <div id="carousel-main-container">
             <div className="carousel-arrow-left"><Arrow direction={'left'} slideHandler={this.slideHandler.bind(this)}/></div>
             <PrimaryPhoto photo={this.state.photos[this.state.activePhoto]}/>
@@ -62,7 +63,13 @@ class Carousel extends React.Component {
       )
     } else {
       return (
-        <span>Loading Photos</span>
+        <div id="carousel">
+        <div id="carousel-main-container">
+          <div id="carousel-loader">
+            <span>Loading...</span>
+          </div>
+          </div>
+        </div>
       )
     }
   }
