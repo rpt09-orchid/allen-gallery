@@ -26,7 +26,7 @@ class App extends React.Component {
           url: ''
         },
       },
-      carouselActive: false
+      carouselActive: true
     }
   }
 
@@ -68,7 +68,7 @@ class App extends React.Component {
     if(this.state.carouselActive) {
       return (
         <div>
-          <Carousel toggleCarousel={this.toggleCarousel.bind(this)}/>
+          <Carousel photos={this.state.photos} toggleCarousel={this.toggleCarousel.bind(this)}/>
         </div>
       )
     } else {
