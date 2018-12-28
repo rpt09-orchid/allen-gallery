@@ -28,8 +28,12 @@ class Carousel extends React.Component {
     }, 200); 
   }
 
-  slideHandler() {
-    console.log('slide!')
+  slideHandler(e) {
+    if(e.target.id === 'slideLeft') {
+      console.log('Left!')
+    } else if(e.target.id === 'slideRight') {
+      console.log('Right!')
+    }
   }
 
   render() {
@@ -38,9 +42,9 @@ class Carousel extends React.Component {
     return (
       <div id="carousel">
         <div id="carousel-main-container">
-          <div className="carousel-arrow-left"><Arrow direction={'left'} slideHandler={this.slide.bind(this)}/></div>
+          <div className="carousel-arrow-left"><Arrow direction={'left'} slideHandler={this.slideHandler.bind(this)}/></div>
           <PrimaryPhoto photo={this.state.primaryPhoto}/>
-          <div className="carousel-arrow-right"><Arrow direction={'right'} slideHandler={this.slide.bind(this)}/></div>
+          <div className="carousel-arrow-right"><Arrow direction={'right'} slideHandler={this.slideHandler.bind(this)}/></div>
         </div>
       </div>
     )

@@ -3,11 +3,11 @@ import React from 'react';
 const Arrow = (props) => {
   if (props.direction === 'left') {
     return (
-      <span>&lt;</span>
+      <span onClick={props.slideHandler} id="slideLeft">&lt;</span>
     )
   } else {
     return (
-      <span>&gt;</span>
+      <span onClick={props.slideHandler} id="slideRight">&gt;</span>
     )
   }
 }
