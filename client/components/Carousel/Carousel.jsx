@@ -55,9 +55,9 @@ class Carousel extends React.Component {
             <span onClick={this.props.toggleCarousel}>X</span>
           </div>
           <div id="carousel-main-container">
-            <div className="carousel-arrow-left"><Arrow direction={'left'} slideHandler={this.slideHandler.bind(this)}/></div>
+            <div className="carousel-arrow"><Arrow direction={'left'} slideHandler={this.slideHandler.bind(this)}/></div>
             <PrimaryPhoto photo={this.state.photos[this.state.activePhoto]}/>
-            <div className="carousel-arrow-right"><Arrow direction={'right'} slideHandler={this.slideHandler.bind(this)}/></div>
+            <div className="carousel-arrow"><Arrow direction={'right'} slideHandler={this.slideHandler.bind(this)}/></div>
           </div>
         </div>
       )
