@@ -24,23 +24,23 @@ const backgroundImages = {
   return (
     <div className="grid-container">
     <div className="photo-cell photo-1">
-      <div className="cropped-photo" id="photo-1" style={backgroundImages.photo1} onClick={props.toggleCarousel}></div>
+      <div className="cropped-photo" style={backgroundImages.photo1} onClick={props.toggleCarousel}></div>
     </div>
 
     <div className="photo-cell photo-2">
-      <div className="cropped-photo" id="photo-2" style={backgroundImages.photo2} onClick={props.toggleCarousel}></div>
+      <div className="cropped-photo" style={backgroundImages.photo2} onClick={props.toggleCarousel}></div>
     </div>
 
     <div className="photo-cell photo-3">
-      <div className="cropped-photo" id="photo-3" style={backgroundImages.photo3} onClick={props.toggleCarousel}></div>
+      <div className="cropped-photo" style={backgroundImages.photo3} onClick={props.toggleCarousel}></div>
     </div>
 
     <div className="photo-cell photo-4">
-      <div className="cropped-photo" id="photo-4" style={backgroundImages.photo4} onClick={props.toggleCarousel}></div>
+      <div className="cropped-photo" style={backgroundImages.photo4} onClick={props.toggleCarousel}></div>
     </div>
     
     <div className="photo-cell photo-5">
-      <div className="cropped-photo" id="photo-5" style={backgroundImages.photo5} onClick={props.toggleCarousel}></div>
+      <div className="cropped-photo" style={backgroundImages.photo5} onClick={props.toggleCarousel}></div>
     </div>
 
 
