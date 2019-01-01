@@ -1,33 +1,46 @@
 .grid-container {
   display:grid;
-  background-color: #000;
+  /* background-color: #000; */
   width: 100%;
   height: 592px;
-  grid-gap: 2px;
+  /* grid-gap: 2px; */
   grid-template-areas:
     "primary primary secondary-upper-left secondary-upper-right"
     "primary primary secondary-bottom-left secondary-bottom-right";
     grid-template-columns: 1fr 1fr 1fr 1fr;
+    overflow: hidden;
 }
 
 .photo-1 {
   grid-area: primary;
+  border: 1px solid #000;
+  overflow:hidden;
 }
 
 .photo-2 {
   grid-area: secondary-upper-left;
+  border: 1px solid #000;
+  overflow:hidden;
 }
 
 .photo-3 {
   grid-area: secondary-upper-right;
+  border: 1px solid #000;
+  overflow:hidden;
+
 }
 
 .photo-4 {
   grid-area: secondary-bottom-left;
+  border: 1px solid #000;
+  overflow:hidden;
+
 }
 
 .photo-5 {
   grid-area: secondary-bottom-right;
+  border: 1px solid #000;
+  overflow:hidden;
 }
 
 .photo {
@@ -37,6 +50,17 @@
 }
 
 .cropped-photo {
-  overflow:hidden;
   position: relative !important;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  background-position: center;
+  background-size: cover;
+}
+
+
+.photo-cell:hover .cropped-photo {
+  transform: scale(1.05);
+  border: 1px solid #000;
+  transition: all .2s;
 }

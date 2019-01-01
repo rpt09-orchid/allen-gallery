@@ -27,17 +27,17 @@ Phone: 743 and below
     background-color: #000;
     width: 100%;
     height: 592px;
-    grid-gap: 2px;
     grid-template-areas:
       "primary primary primary secondary-upper-left secondary-upper-left"
-      "primary primary primary secondary-bottom-left secondary-bottom-left"
+      "primary primary primary secondary-bottom-left secondary-bottom-left";
+    overflow: hidden;
   }
 
-  #photo-3 {
+  .photo-3 {
     display: none;
   }
 
-  #photo-5 {
+  .photo-5 {
     display: none;
   }
 }
@@ -47,28 +47,26 @@ Phone: 743 and below
 @media (max-width: 743px) {
   .grid-container {
     display:grid;
-    background-color: #000;
     width: 100%;
     height: 592px;
-    grid-gap: 2px;
     grid-template-areas:
       "primary primary primary primary primary"
       "primary primary primary primary primary"
   }
 
-  #photo-2 {
+  .photo-2 {
     display: none;
   }
   
-  #photo-3 {
+  .photo-3 {
     display: none;
   }
 
-  #photo-4 {
+  .photo-4 {
     display: none;
   }
 
-  #photo-5 {
+  .photo-5 {
     display: none;
   }
 }
