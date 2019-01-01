@@ -1,0 +1,11 @@
+.carousel-primary-photo {
+  width: 65%;
+  height: 95%;
+  margin: auto;
+  overflow: hidden
+}
+
+.carousel-primary-photo img {
+  width: 100%;
+  height: auto;
+}
