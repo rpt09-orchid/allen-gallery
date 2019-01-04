@@ -16,7 +16,9 @@ Phone: 743 and below
 
 /* Desktop */
 @media (min-width: 1128px) {
-
+  .nav-grid .mobile-menu {
+    display: none;
+  }
 }
 
 
@@ -39,6 +41,23 @@ Phone: 743 and below
 
   .photo-5 {
     display: none;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .search {
+    width: 83%;
+    padding-left: 40px;
+  }
+
+  .search input{
+    width: 100%;
+  }
+
+  .nav-grid .mobile-menu {
+    display: visible;
   }
 }
 
@@ -68,6 +87,30 @@ Phone: 743 and below
 
   .photo-5 {
     display: none;
+  }
+  
+  .nav {
+    display: none;
+  }
+
+  .search {
+    width: 74%;
+    padding-left: 40px;
+  }
+
+  .search input{
+    width: 100%;
+  }
+
+  .nav-grid .mobile-menu {
+    position: absolute;
+    top: 27px;
+    left: 57px;
+    font-size: 24px;
+  }
+
+  .nav-grid .mobile-menu {
+    display: visible;
   }
 }
 

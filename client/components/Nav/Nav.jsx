@@ -5,6 +5,9 @@ const Nav = () => {
 
   return (
     <div className="nav-grid">
+    <div className="mobile-menu">
+      &#9662;
+    </div>
       <div className="nav-col logo"></div>
       <div className="nav-col search">
         <input type="text" placeholder="search" />

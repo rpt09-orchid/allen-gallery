@@ -11,6 +11,13 @@
   flex: 1;
 }
 
+.nav-grid .mobile-menu {
+  position: absolute;
+  top: 27px;
+  left: 57px;
+  font-size: 24px;
+}
+
 .logo {
   background-image: url("https://s3.us-east-2.amazonaws.com/elasticbeanstalk-us-east-2-785620446758/property_images/logo-png.png");
   background-repeat: no-repeat;
