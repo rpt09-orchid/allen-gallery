@@ -5,6 +5,7 @@
   align-items: center;
   height: 80px;
   padding: 0 25px 0 25px;
+  background-color: #ffffff;
 }
 .col {
   flex: 1;
