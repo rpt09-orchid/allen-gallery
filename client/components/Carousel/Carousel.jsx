@@ -17,12 +17,12 @@ class Carousel extends React.Component {
   componentDidMount() {
     this.setState({
       photos: _.toArray(this.props.photos),
-      activePhoto: 0,
+      activePhoto: this.props.clicked,
     })
   }
 
   slideHandler(e) {
-    // Aliases for readability and economy =================
+    // Aliases for readability =============================
     const photos = this.state.photos;
     const activePhoto = this.state.activePhoto;
     // =====================================================
