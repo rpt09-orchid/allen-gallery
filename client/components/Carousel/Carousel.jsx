@@ -17,7 +17,7 @@ class Carousel extends React.Component {
   componentDidMount() {
     this.setState({
       photos: _.toArray(this.props.photos),
-      activePhoto: 0,
+      activePhoto: this.props.clicked,
     })
   }
 

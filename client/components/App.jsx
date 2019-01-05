@@ -58,13 +58,15 @@ class App extends React.Component {
             photo5: {
               url: photos[4].location
             }
-          }
+          },
+          clicked: 1
         })
       })
   }
 
-  toggleCarousel() {
-    this.state.carouselActive ? this.setState({ carouselActive: false }) : this.setState({ carouselActive: true });
+  toggleCarousel(e) {
+    const clickedId = e.target.id.slice(5)
+    this.state.carouselActive ? this.setState({ carouselActive: false, clicked: 1 }) : this.setState({ carouselActive: true, clicked: parseInt(clickedId) });
   }
 
   render() {
@@ -75,7 +77,7 @@ class App extends React.Component {
             <Nav />
           </div>
           <div>
-            <Carousel photos={this.state.photos} toggleCarousel={this.toggleCarousel.bind(this)} />
+            <Carousel photos={this.state.photos} clicked={this.state.clicked} toggleCarousel={this.toggleCarousel.bind(this)} />
           </div>
         </div>
       )
