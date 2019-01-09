@@ -1,6 +1,14 @@
 # Recreating the Airbnb.com gallery module
 
-It's been a long time since I've had to do any serious front-end work, so this is a welcome challenge for me. The last time I did anything of this complexity, we were still limited to floats and negative margin hacks.
+I created this application to exist as a singular piece of a larger microservices  architected application. This application uses a number of technologies, most notably React, MongoDB.
+
+ Currently, this service contains two main components:
+
+### Photo Grid
+A responsive arrangement of images arranged in a grid layout, with a large feature image and smaller supporting images. This is a stateful component
+
+### Carousel
+A responsive
 
 I'm super excited to get up to speed with some of the new nicities, specifically:
 
