@@ -4,7 +4,9 @@ import Carousel from './Carousel/Carousel.jsx';
 import Nav from './Nav/Nav.jsx';
 import './App.css';
 
-const serviceLocation = 'http://photos.urvjp33d4m.us-west-2.elasticbeanstalk.com';
+let serviceLocation;
+
+process.env.NODE_ENV === 'development' ? serviceLocation = 'http://localhost:3002' : serviceLocation = 'http://photos.urvjp33d4m.us-west-2.elasticbeanstalk.com/';
 
 class App extends React.Component {
   constructor() {
