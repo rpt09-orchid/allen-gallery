@@ -6,7 +6,7 @@ import './App.css';
 
 let serviceLocation;
 
-process.env.NODE_ENV === 'development' ? serviceLocation = 'http://localhost:3002' : serviceLocation = 'http://photos.urvjp33d4m.us-west-2.elasticbeanstalk.com/';
+process.env.NODE_ENV === 'development' ? serviceLocation = 'http://localhost:3002' : serviceLocation = 'https://firebnb-gallery.herokuapp.com/';
 
 class App extends React.Component {
   constructor() {
