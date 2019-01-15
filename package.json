@@ -8,7 +8,7 @@
     "build": "webpack",
     "react-dev": "webpack -d --watch",
     "server-dev": "nodemon ./server/server.js",
-    "start": "webpack && node server/server.js"
+    "start": "node server/server.js"
   },
   "keywords": [],
   "author": "",
