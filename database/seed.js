@@ -5,7 +5,7 @@ const readFile = Promise.promisify(require("fs").readFile);
 const utils = require('./dbUtils.js');
 const _ = require('lodash');
 
-const productionBucket = `https://s3.us-east-2.amazonaws.com/elasticbeanstalk-us-east-2-785620446758/property_images/`;
+const productionBucket = process.env.PRODUCTION_BUCKET;
 
 const Schema = mongoose.Schema;
 const PropertySchema = new Schema({
