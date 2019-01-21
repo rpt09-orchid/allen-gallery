@@ -1,53 +1,26 @@
-require('dotenv').config()
-const db = require('./db')
-const Promise = require('bluebird');
-const readFile = Promise.promisify(require("fs").readFile);
-const utils = require('./dbUtils.js');
-const _ = require('lodash');
+const faker = require('faker');
+const Property = require('./models/property');
+const mongoose = require('mongoose');
+const photoGroups = require('./photoGroups');
 
-const productionBucket = process.env.PRODUCTION_BUCKET;
-
-const Schema = mongoose.Schema;
-const PropertySchema = new Schema({
-  id:  String,
-  photos: [{ id: String, location: String }]
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/photos');
+const db = mongoose.connection;
+db.on('error', (err) => {
+  console.log('error connecting to MongoDB', err);
+})
+db.once('open', () => {
+  console.log('mongoose connected');
 });
 
-const Property = mongoose.model('Property', PropertySchema);
-const db = mongoose.model('Property');
-
-// Helpers to generate 100 records
-let generateProperties = (qty) => {
-  const properties = [];
-  for (let i = 1; i < 101; i++) {
-    const photos = generatePhotos(1);
-    const property = {
-      id:  '' + i,
-      photos: photos
-    }
-    properties.push(property)
+for (let i = 1; 1 < 101; i++) {
+  let gallery = {
+    id: i,
+    photos: faker.random.arrayElement(photoGroups)
   }
-  return properties;
-}
 
-let generatePhotos = (qty) => {
-  const photos = [];
-  for (let i = 0; i < qty; i++) {
-    const id = generateRandomId();
-    const location = 'https://picsum.photos/800/800/?image=172';
-    const newPhoto = {
-      id: '' + id,
-      location: location
+  Property.insertOne(gallery, (err, room) => {
+    if (err) {
+      console.log('error adding Gallery', err);
     }
-    photos.push(newPhoto);
-  }
-  return photos;
+  });
 }
-
-let generateRandomId = () => {
-  return Math.floor(Math.random() * 90000) + 10000;
-}
-
-insertProperties();
-
-//TEST
