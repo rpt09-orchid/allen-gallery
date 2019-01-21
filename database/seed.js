@@ -13,7 +13,6 @@ db.once('open', () => {
   console.log('mongoose connected');
 });
 
-
 for (let i = 1; i < 101; i++) {
 
   let gallery = {
@@ -21,10 +20,18 @@ for (let i = 1; i < 101; i++) {
     photos: faker.random.arrayElement(photoGroups)
   }
 
-  Gallery.insertOne(gallery, (err) => {
-    if (err) {
-      console.log('error adding Gallery', err);
-    }
-  });
-
+  if (i === 100) {
+    Gallery.insertOne(gallery, (err) => {
+      if (err) {
+        console.log('error adding Gallery', err);
+      }
+      mongoose.disconnect();
+    })
+  } else {
+    Gallery.insertOne(gallery, (err) => {
+      if (err) {
+        console.log('error adding Gallery', err);
+      }
+    });
+  }
 }
