@@ -1,14 +1,27 @@
 const mongoose = require('mongoose');
-
 const Schema = mongoose.Schema;
+
 const PropertySchema = new Schema({
-  id: Number,
-  photos: [{
-    id: Number,
-    location: String
-  }]
+  id: { type: Number, unique: true },
+  photos: { type: Array, required: true }
 });
 
+const PropertyModel = mongoose.model('Property', PropertySchema);
+
+const findByID = (id, callback) => {
+  PropertyModel.find({ id }, callback);
+};
+
+const insertOne = (room, callback) => {
+  PropertyModel.create(room, callback);
+};
+
+const insertMany = (docs, callback) => {
+  PropertyModel.insertMany(docs, callback);
+}
+
 module.exports = {
-  Property: mongoose.model('Property', PropertySchema)
+  findByID,
+  insertOne,
+  insertMany
 };
