@@ -1,5 +1,5 @@
 const faker = require('faker');
-const Property = require('./models/property');
+const Gallery = require('./models/gallery');
 const mongoose = require('mongoose');
 const { photoGroups } = require('./photoGroups');
 
@@ -21,7 +21,7 @@ for (let i = 1; i < 101; i++) {
     photos: faker.random.arrayElement(photoGroups)
   }
 
-  Property.insertOne(gallery, (err) => {
+  Gallery.insertOne(gallery, (err) => {
     if (err) {
       console.log('error adding Gallery', err);
     }
