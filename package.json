@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "seed": "node ./database/seed.js",
     "test": "jest",
     "build": "webpack",
     "react-dev": "webpack -d --watch",

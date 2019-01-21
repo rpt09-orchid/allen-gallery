@@ -13,14 +13,14 @@ db.once('open', () => {
   console.log('mongoose connected');
 });
 
-for (let i = 1; i < 101; i++) {
+for (let i = 1; i < 10001; i++) {
 
   let gallery = {
     id: i,
     photos: faker.random.arrayElement(photoGroups)
   }
 
-  if (i === 100) {
+  if (i === 10000) {
     Gallery.insertOne(gallery, (err) => {
       if (err) {
         console.log('error adding Gallery', err);
