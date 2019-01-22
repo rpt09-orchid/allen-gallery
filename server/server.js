@@ -1,28 +1,18 @@
-const express = require('express');
-const app = express();
-const morgan = require('morgan');
-const path = require('path');
-const cors = require('cors');
-const port = process.env.PORT || 3002;
-const db = require('../database/db');
-const dbUtils = require('../database/dbUtils');
-const Models = require('../database/models')
+const mongoose = require('mongoose');
+const app = require('./app.js');
 
-app.use(morgan('dev'));
-app.use(express.static(path.join(__dirname, '../public')));
-app.use('/:id', express.static(path.join(__dirname, '../public')));
-app.use(cors());
+mongoose.connect((process.env.MONGODB_URI || 'mongodb://localhost/galleries'), { useCreateIndex: true, useNewUrlParser: true });
 
-app.listen(port, () => {
-  console.log(`server running at port: ${port}`);
+const db = mongoose.connection;
+db.on('error', (err) => {
+  console.log('error connecting', err);
+});
+db.once('open', () => {
+  console.log('mongoose connected');
 });
 
-app.get('/photos/:id', (req, res) => {
-  Models.Property.find({id: req.params.id}, (err, property) => {
-    if (err) {
-      res.status(404).json({error: `ID ${req.params.id} does not exist in database`});
-    } else {
-      res.json({data: property});
-    }
-  });
+const port = process.env.PORT || 3002;
+
+app.listen(port, () => {
+  console.log(`listening on port ${port}`);
 });

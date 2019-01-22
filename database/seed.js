@@ -1,53 +1,32 @@
-require('dotenv').config()
-const db = require('./db')
-const Promise = require('bluebird');
-const readFile = Promise.promisify(require("fs").readFile);
-const utils = require('./dbUtils.js');
-const _ = require('lodash');
+const faker = require('faker');
+const Gallery = require('./models/gallery');
+const mongoose = require('mongoose');
+const { photoGroups } = require('./photoGroups');
 
-const productionBucket = process.env.PRODUCTION_BUCKET;
+mongoose.connect((process.env.MONGODB_URI || 'mongodb://localhost/galleries'), { useCreateIndex: true, useNewUrlParser: true });
+const db = mongoose.connection;
 
-const Schema = mongoose.Schema;
-const PropertySchema = new Schema({
-  id:  String,
-  photos: [{ id: String, location: String }]
+let arr = [];
+let gallery;
+
+db.on('error', (err) => {
+  console.log('error connecting to MongoDB', err);
+})
+db.once('open', () => {
+  console.log('mongoose connected');
+  for (let i = 1; i < 400001; i++) {
+    gallery = {
+      id: i,
+      photos: faker.random.arrayElement(photoGroups)
+    }
+    arr.push(gallery);
+  }
+
+  Gallery.insertMany(arr, (error) => {
+    if (error) {
+      console.log('error adding gallery', err);
+    }
+    console.log('length', arr.length);
+    mongoose.disconnect();
+  })
 });
-
-const Property = mongoose.model('Property', PropertySchema);
-const db = mongoose.model('Property');
-
-// Helpers to generate 100 records
-let generateProperties = (qty) => {
-  const properties = [];
-  for (let i = 1; i < 101; i++) {
-    const photos = generatePhotos(1);
-    const property = {
-      id:  '' + i,
-      photos: photos
-    }
-    properties.push(property)
-  }
-  return properties;
-}
-
-let generatePhotos = (qty) => {
-  const photos = [];
-  for (let i = 0; i < qty; i++) {
-    const id = generateRandomId();
-    const location = 'https://picsum.photos/800/800/?image=172';
-    const newPhoto = {
-      id: '' + id,
-      location: location
-    }
-    photos.push(newPhoto);
-  }
-  return photos;
-}
-
-let generateRandomId = () => {
-  return Math.floor(Math.random() * 90000) + 10000;
-}
-
-insertProperties();
-
-//TEST
