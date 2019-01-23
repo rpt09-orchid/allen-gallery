@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
+
 const Schema = mongoose.Schema;
 
 const GallerySchema = new Schema({
-  id: { type: Number, unique: true },
   photos: { type: Array, required: true }
 });
 
