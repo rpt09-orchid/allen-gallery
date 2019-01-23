@@ -17,7 +17,7 @@ const insertOne = (room, callback) => {
 };
 
 const insertMany = (docs, callback) => {
-  GalleryModel.insertMany(docs, callback);
+  return GalleryModel.insertMany(docs, callback);
 }
 
 module.exports = {

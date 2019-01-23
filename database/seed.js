@@ -12,9 +12,9 @@ let gallery;
 db.on('error', (err) => {
   console.log('error connecting to MongoDB', err);
 })
-db.once('open', () => {
+db.once('open', async () => {
   console.log('mongoose connected');
-  for (let i = 1; i < 400001; i++) {
+  for (let i = 1; i < 250001; i++) {
     gallery = {
       id: i,
       photos: faker.random.arrayElement(photoGroups)
