@@ -1,44 +1,46 @@
+const mongoose = require('mongoose');
 const faker = require('faker');
 const Gallery = require('./models/gallery');
-const mongoose = require('mongoose');
 const { photoGroups } = require('./photoGroups');
 
 mongoose.connect((process.env.MONGODB_URI || 'mongodb://localhost/galleries'), { useCreateIndex: true, useNewUrlParser: true });
-const db = mongoose.connection;
+let db = mongoose.connection;
 
-let count = 1;
-let gallery;
+let idCounter = 1;
+let arr;
+let round = 0;
+
+var arrayGenerator = () => {
+  arr = [];
+  for (let i = 0; i < 1000; i++) {
+    gallery = {
+      id: idCounter,
+      photos: faker.random.arrayElement(photoGroups)
+    }
+    arr.push(gallery);
+    idCounter += 1;
+  }
+}
+
+let insertionFactory = () => {
+  arrayGenerator();
+  return Gallery.GalleryModel.insertMany(arr);
+}
+
+let generateAndInsert= async () => {
+  while(round < 10000){
+    await insertionFactory();
+    round += 1;
+    if (round % 100 === 0) {
+      console.log(round);
+    }
+  }
+}
 
 db.on('error', (err) => {
-  console.log('error connecting to MongoDB', err);
-})
+  console.log('error connecting', err);
+});
 db.once('open', () => {
   console.log('mongoose connected');
-  for (let j = 0; j < 100; j++) {
-    let arr = [];
-    for (let i = 1; i < 100; i++) {
-      gallery = {
-        id: count,
-        photos: faker.random.arrayElement(photoGroups)
-      }
-      arr.push(gallery);
-      count += 1;
-    }
-
-
-    // Gallery.GalleryModel.insertMany(arr, (error) => {
-    //   if (error) {
-    //     console.log('error adding gallery', err);
-    //   }
-    //   mongoose.disconnect();
-    // });
-    Gallery.insertMany(arr, (error) => {
-      if (error) {
-        console.log('error adding gallery', err);
-      }
-      if (j === 99) {
-        mongoose.disconnect();
-      }
-    });
-  }
+  generateAndInsert();
 });
