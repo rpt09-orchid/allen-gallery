@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "seed": "node ./database/seed.js",
+    "seed2": "node ./database/seed2.js",
     "test": "jest",
     "build": "webpack",
     "react-dev": "webpack -d --watch",
