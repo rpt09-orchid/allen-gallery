@@ -10,9 +10,9 @@ let idCounter = 1;
 let arr;
 let round = 0;
 
-var arrayGenerator = () => {
+const arrayGenerator = () => {
   arr = [];
-  for (let i = 0; i < 1000; i++) {
+  for (let i = 0; i < 10000; i++) {
     gallery = {
       id: idCounter,
       photos: faker.random.arrayElement(photoGroups)
@@ -22,13 +22,13 @@ var arrayGenerator = () => {
   }
 }
 
-let insertionFactory = () => {
+const insertionFactory = () => {
   arrayGenerator();
   return Gallery.GalleryModel.insertMany(arr);
 }
 
-let generateAndInsert= async () => {
-  while(round < 10000){
+const generateAndInsert= async () => {
+  while (round < 1000) {
     await insertionFactory();
     round += 1;
     if (round % 100 === 0) {
