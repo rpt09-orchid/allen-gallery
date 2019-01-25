@@ -12,7 +12,7 @@ let round = 0;
 
 const arrayGenerator = () => {
   arr = [];
-  for (let i = 0; i < 10000; i++) {
+  for (let i = 0; i < 100000; i++) {
     gallery = {
       id: idCounter,
       photos: faker.random.arrayElement(photoGroups)
@@ -24,17 +24,24 @@ const arrayGenerator = () => {
 
 const insertionFactory = () => {
   arrayGenerator();
-  return Gallery.GalleryModel.insertMany(arr);
+  return Gallery.GalleryModel.insertMany(arr).catch(error => {
+    console.log('Error inserting records', error);
+    mongoose.disconnect();
+  });
 }
 
 const generateAndInsert= async () => {
-  while (round < 1000) {
+  while (round < 100) {
     await insertionFactory();
     round += 1;
-    if (round % 100 === 0) {
-      console.log(round);
+    if (round % 10) {
+      console.log('Round:', round);
     }
   }
+
+  mongoose.disconnect(() => {
+    console.log('10m records inserted');
+  });
 }
 
 db.on('error', (err) => {
