@@ -23,5 +23,6 @@ const insertMany = (docs, callback) => {
 module.exports = {
   findByID,
   insertOne,
-  insertMany
+  insertMany,
+  GalleryModel
 };

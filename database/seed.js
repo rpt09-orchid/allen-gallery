@@ -1,32 +1,37 @@
-const faker = require('faker');
-const Gallery = require('./models/gallery');
 const mongoose = require('mongoose');
-const { photoGroups } = require('./photoGroups');
+const Gallery = require('./models/gallery');
+const { arrayGenerator } = require('./dataGenerator');
 
 mongoose.connect((process.env.MONGODB_URI || 'mongodb://localhost/galleries'), { useCreateIndex: true, useNewUrlParser: true });
-const db = mongoose.connection;
+let db = mongoose.connection;
 
-let arr = [];
-let gallery;
+let round = 0;
 
-db.on('error', (err) => {
-  console.log('error connecting to MongoDB', err);
-})
-db.once('open', () => {
-  console.log('mongoose connected');
-  for (let i = 1; i < 400001; i++) {
-    gallery = {
-      id: i,
-      photos: faker.random.arrayElement(photoGroups)
+const insertionFactory = () => {
+  return Gallery.GalleryModel.insertMany(arrayGenerator()).catch(error => {
+    console.log('Error inserting records', error);
+    mongoose.disconnect();
+  });
+}
+
+const insertRounds = async () => {
+  while (round < 100) {
+    await insertionFactory();
+    round += 1;
+    if (round % 10 === 0) {
+      console.log('Round:', round);
     }
-    arr.push(gallery);
   }
 
-  Gallery.insertMany(arr, (error) => {
-    if (error) {
-      console.log('error adding gallery', err);
-    }
-    console.log('length', arr.length);
-    mongoose.disconnect();
-  })
+  mongoose.disconnect(() => {
+    console.log('10m records inserted');
+  });
+}
+
+db.on('error', (err) => {
+  console.log('error connecting', err);
+});
+db.once('open', () => {
+  console.log('mongoose connected');
+  insertRounds();
 });
