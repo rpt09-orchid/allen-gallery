@@ -19,7 +19,23 @@
 
 ## Instalation
 
-To-Do
+To-Do (Not ready yet because I have not selected final database)
+
+```bash
+# install the depdencies
+npm run install
+# seed the db initially (mongoDB) - Should take 5 min
+npm run seed
+# start react dev environment
+npm run react-dev
+# start server dev environment
+npm run server-dev
+```
+In your browser, go to http://localhost:3002/
+
+ID's 1 to 10000000 are valid so
+http://localhost:3002/1 to http://localhost:3002/10000000
+
 
 ## API Routes
 
