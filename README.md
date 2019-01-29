@@ -42,7 +42,7 @@ http://localhost:3002/1 to http://localhost:3002/10000000
 | Endpoint      | Type | Operation                                             |
 | ------------- | ---- | ----------------------------------------------------- |
 | `/photos/:id` | GET  | Get all gallery photos for room matching the `:id`    |
-| `/photos/:id` | PUT  | Update the MAIN photo for the room matching the `:id` |
+| `/photos/edit/:id/` | PUT  | Update the MAIN photo for the room matching the `:id` |
 
 ## Examples
 
