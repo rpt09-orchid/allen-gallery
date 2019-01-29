@@ -2,19 +2,34 @@ require('dotenv').config();
 const { Client } = require('pg');
 const { arrayGenerator } = require('./dataGenerator');
 const path = require('path');
-const csvdata = require('csvdata');
 
-const createCsvWriter = require('csv-writer').createObjectCsvWriter;
-const csvWriter = createCsvWriter({
-  path: './test.csv',
-  header: [
-    {id: 'id', title: 'id'},
-    {id: 'photos', title: 'photos'}
-  ]
-});
+const fs = require('fs');
+const csv = require('fast-csv');
+
+const ws = fs.createWriteStream("./test.csv");
 
 let timerStart;
 let timeElapsed;
+
+const csvWriter = () => {
+  const options = {
+    headers: true,
+    transform: (row) => {
+      return {
+        id: row.id,
+        photos: JSON.stringify(row.photos)
+      };
+    }}
+
+  return new Promise((resolve, reject) => {
+
+    csv.write(arrayGenerator(), options).pipe(ws).on("finish", () => {
+        console.log("DONE!");
+        resolve();
+      });
+
+  });
+}
 
 // connect to postgres db
 // create csv file with 100k lines
@@ -31,60 +46,15 @@ const client = new Client({
 
 ( async () => {
   // await client.connect();
-  console.log('Connected to PostgreSQL database');
-  timerStart = Date.now()
+  // console.log('Connected to PostgreSQL database');
+  // timerStart = Date.now()
   // await client.query('DROP TABLE IF EXISTS galleries')
   // await client.query('CREATE TABLE IF NOT EXISTS galleries (id serial PRIMARY KEY, photo JSON NOT NULL)');
   try {
-    // console.log(arrayGenerator());
-    // await csvWriter.writeRecords(arrayGenerator());
-    await csvdata.write('./test.csv', arrayGenerator(), {header: 'id,photos'})
+    await csvWriter();
   } catch (error) {
     throw error;
   }
   console.log('done, bye bye');
   // await client.end();
 })().catch(e => console.error(e));
-
-
-
-// const insertionFactory = () => {
-//   return new Promise(function(resolve, reject){
-//     db.collection('galleries').insertMany(arrayGenerator(), function(error, doc) {
-//       if (error) {
-//         console.log(error);
-//         reject(error);
-//       } else {
-//         resolve();
-//       }
-//     });
-//   });
-// }
-
-// const insertRounds = async () => {
-//   while (round < 100) {
-//     await insertionFactory();
-//     round += 1;
-//     if (round % 10 === 0) {
-//       console.log('Round:', round);
-//     }
-//   }
-
-//   timeElapsed = (Date.now() - timerStart) / 1000;
-
-//   mongoose.disconnect(() => {
-//     console.log(`10m records inserted in ${timeElapsed} seconds`);
-//   });
-// }
-
-// db.on('error', (err) => {
-//   console.log('error connecting', err);
-// });
-
-// db.once('open', () => {
-//   console.log('mongoose connected');
-//   timerStart = Date.now();
-// }).then(() => {
-//   insertRounds();
-// });
-
