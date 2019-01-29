@@ -1,7 +1,5 @@
 require('dotenv').config();
 const { Client } = require('pg');
-const fs = require('fs');
-const csv = require('fast-csv');
 const { arrayGenerator } = require('./dataGenerator');
 
 let timerStart;
@@ -47,45 +45,45 @@ client.connect()
   });
 
 
-  const insertionFactory = () => {
-    return new Promise(function(resolve, reject){
-      db.collection('galleries').insertMany(arrayGenerator(), function(error, doc) {
-        if (error) {
-          console.log(error);
-          reject(error);
-        } else {
-          resolve();
-        }
-      });
-    });
-  }
-
-  const insertRounds = async () => {
-    while (round < 100) {
-      await insertionFactory();
-      round += 1;
-      if (round % 10 === 0) {
-        console.log('Round:', round);
+const insertionFactory = () => {
+  return new Promise(function(resolve, reject){
+    db.collection('galleries').insertMany(arrayGenerator(), function(error, doc) {
+      if (error) {
+        console.log(error);
+        reject(error);
+      } else {
+        resolve();
       }
-    }
-
-    timeElapsed = (Date.now() - timerStart) / 1000;
-
-    mongoose.disconnect(() => {
-      console.log(`10m records inserted in ${timeElapsed} seconds`);
     });
+  });
+}
+
+const insertRounds = async () => {
+  while (round < 100) {
+    await insertionFactory();
+    round += 1;
+    if (round % 10 === 0) {
+      console.log('Round:', round);
+    }
   }
 
-  db.on('error', (err) => {
-    console.log('error connecting', err);
-  });
+  timeElapsed = (Date.now() - timerStart) / 1000;
 
-  db.once('open', () => {
-    console.log('mongoose connected');
-    timerStart = Date.now();
-  }).then(() => {
-    insertRounds();
+  mongoose.disconnect(() => {
+    console.log(`10m records inserted in ${timeElapsed} seconds`);
   });
+}
+
+db.on('error', (err) => {
+  console.log('error connecting', err);
+});
+
+db.once('open', () => {
+  console.log('mongoose connected');
+  timerStart = Date.now();
+}).then(() => {
+  insertRounds();
+});
 
 const createCSV = () => {
   return new Promise( ( resolve, reject ) => {
