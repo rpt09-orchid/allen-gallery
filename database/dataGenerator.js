@@ -6,7 +6,7 @@ let idCounter = 1;
 
 const arrayGenerator = () => {
   arr = [];
-  for (let i = 0; i < 100000; i++) {
+  for (let i = 0; i < 1; i++) {
     gallery = {
       id: idCounter,
       photos: faker.random.arrayElement(photoGroups)
