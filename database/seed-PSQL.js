@@ -7,22 +7,20 @@ const { arrayGenerator } = require('./dataGenerator');
 let timerStart;
 let timeElapsed;
 
+// connect to postgres db
+// create csv file with 100k lines
+// copy the csv file to postgres - WAIT UNTIL IT IS DONE
+// begin the process again by WRITING OVER THE CSV FILE
+
+
 // const csvStream = csv.createWriteStream({headers: true})
-// const ws = fs.createWriteStream("./test.csv");
+const ws = fs.createWriteStream("./test.csv");
 
-// ws.on("finish", function(){
-//   console.log("DONE!");
-// });
+ws.on("finish", function(){
+  console.log("DONE!");
+});
 
-// csvStream.write(['id', 'photos']);
-// csv.write(arrayGenerator(), {
-//   headers: true,
-//   transform: function(row) {
-//       return {
-//           id: row.id,
-//           photos: JSON.stringify(row.photos)
-//       };
-//   }}).pipe(ws);
+csvStream.write(['id', 'photos']);
 
 const client = new Client({
   user: process.env.PGUSER,
@@ -41,25 +39,64 @@ client.connect()
         client.query('CREATE TABLE IF NOT EXISTS galleries (id serial PRIMARY KEY, photo JSON NOT NULL)');
       })
       .then( () => {
-        arrayGenerator().forEach(id => {
-          insertionFactory(JSON.stringify(id.photos));
-        });
+
       });
   })
   .catch(error => {
     console.log(error);
   });
 
-const insertionFactory = (photosArray) => {
-  return new Promise(function(resolve, reject) {
-      client.query(`INSERT INTO galleries (photo) VALUES ($1) RETURNING id`, [photosArray], (err, res) => {
-          if (err) {
-              console.log(err);
-              reject(err);
-          } else {
-              // console.log(res.fields);
-              resolve();
-          }
-      })
+
+  const insertionFactory = () => {
+    return new Promise(function(resolve, reject){
+      db.collection('galleries').insertMany(arrayGenerator(), function(error, doc) {
+        if (error) {
+          console.log(error);
+          reject(error);
+        } else {
+          resolve();
+        }
+      });
+    });
+  }
+
+  const insertRounds = async () => {
+    while (round < 100) {
+      await insertionFactory();
+      round += 1;
+      if (round % 10 === 0) {
+        console.log('Round:', round);
+      }
+    }
+
+    timeElapsed = (Date.now() - timerStart) / 1000;
+
+    mongoose.disconnect(() => {
+      console.log(`10m records inserted in ${timeElapsed} seconds`);
+    });
+  }
+
+  db.on('error', (err) => {
+    console.log('error connecting', err);
   });
+
+  db.once('open', () => {
+    console.log('mongoose connected');
+    timerStart = Date.now();
+  }).then(() => {
+    insertRounds();
+  });
+
+const createCSV = () => {
+  return new Promise( ( resolve, reject ) => {
+    csv.write(arrayGenerator(), {
+      headers: true,
+      transform: function(row) {
+          return {
+              id: row.id,
+              photos: JSON.stringify(row.photos)
+          };
+      }}
+    ).pipe(ws);
+  })
 }
