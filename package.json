@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "seed": "node ./database/seed.js",
+    "seed": "node ./database/seed-Mongo.js",
     "test": "jest",
     "build": "webpack",
     "react-dev": "webpack -d --watch",
