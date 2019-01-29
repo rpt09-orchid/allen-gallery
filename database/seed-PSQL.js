@@ -56,8 +56,14 @@ const client = new Client({
   try {
     await csvWriter();
     console.log(path.join(__dirname, 'test.csv'));
-    await client.query(`COPY galleries(id,photos) FROM '${path.join(__dirname, 'test.csv')}' CSV HEADER`)
-  } catch (error) {
+    await client.query(`COPY galleries(id,photos) FROM '${path.join(__dirname, 'test.csv')}' CSV HEADER`);
+    await client.query('SELECT * FROM galleries WHERE id = 100000')
+      .then(res => {
+        console.log('Did I do the thing?');
+        console.log(res.rows[0]);
+      })
+      .catch(e => console.error(e.stack));
+} catch (error) {
     throw error;
   }
   await client.end();
