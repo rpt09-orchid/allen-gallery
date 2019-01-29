@@ -27,9 +27,11 @@ dist/
 database/downloads
 
 *.JPG
-.env
+*.env
+*.csv
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+database/test.csv

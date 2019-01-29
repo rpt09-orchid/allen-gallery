@@ -19,9 +19,11 @@
     "cors": "^2.8.5",
     "dotenv": "^6.2.0",
     "express": "^4.16.2",
+    "fast-csv": "^2.4.1",
     "jest": "^22.3.0",
     "mongoose": "^5.4.0",
     "morgan": "^1.9.1",
+    "pg": "^7.8.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "slick-carousel": "^1.8.1"
