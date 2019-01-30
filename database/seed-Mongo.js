@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
-const Gallery = require('./models/gallery');
 const { arrayGenerator } = require('./dataGenerator');
 
 mongoose.connect((process.env.MONGODB_URI || 'mongodb://localhost/galleries'), { useCreateIndex: true, useNewUrlParser: true });
-let db = mongoose.connection;
+const db = mongoose.connection;
+
 let timerStart;
 let timeElapsed;
 
@@ -20,8 +20,8 @@ try {
 let round = 0;
 
 const insertionFactory = () => {
-  return new Promise(function(resolve, reject){
-    db.collection('galleries').insertMany(arrayGenerator(), function(error, doc) {
+  return new Promise((resolve, reject) => {
+    db.collection('galleries').insertMany(arrayGenerator(), (error, doc) => {
       if (error) {
         console.log(error);
         reject(error);
