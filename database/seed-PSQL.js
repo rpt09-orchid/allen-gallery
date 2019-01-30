@@ -6,12 +6,11 @@ const path = require('path');
 const fs = require('fs');
 const csv = require('fast-csv');
 
-const ws = fs.createWriteStream(path.join(__dirname, '/test.csv'));
-
 let timerStart;
 let timeElapsed;
 
 const csvWriter = () => {
+  const ws = fs.createWriteStream(path.join(__dirname, '/test.csv'));
   const options = {
     headers: true,
     transform: (row) => {
@@ -24,20 +23,27 @@ const csvWriter = () => {
   return new Promise((resolve, reject) => {
     csv.write(arrayGenerator(), options).pipe(ws)
       .on('finish', () => {
-        console.log('CSV file created');
         resolve();
       })
-      .on('error', () => {
-        console.log('ERROR');
+      .on('error', (error) => {
+        console.log('ERROR creating array', error);
         reject();
       });
   });
 }
 
-// connect to postgres db
-// create csv file with 100k lines
-// copy the csv file to postgres - WAIT UNTIL IT IS DONE
-// begin the process again by WRITING OVER THE CSV FILE
+const deleteFile = () => {
+  return new Promise((resolve, reject) => {
+    fs.unlink(path.join(__dirname, 'test.csv'), (err) => {
+      if (err) {
+        console.log('error deleting file');
+        reject();
+      } else {
+        resolve();
+      }
+    });
+  });
+}
 
 const client = new Client({
   user: process.env.PGUSER,
@@ -54,10 +60,15 @@ const client = new Client({
   await client.query('DROP TABLE IF EXISTS galleries')
   await client.query('CREATE TABLE IF NOT EXISTS galleries (id serial PRIMARY KEY, photos JSON NOT NULL)');
   try {
-    await csvWriter();
-    console.log(path.join(__dirname, 'test.csv'));
-    await client.query(`COPY galleries(id,photos) FROM '${path.join(__dirname, 'test.csv')}' CSV HEADER`);
-    await client.query('SELECT * FROM galleries WHERE id = 100000')
+    let rounds = 0;
+    while (rounds < 100) {
+      await csvWriter();
+      await client.query(`COPY galleries(id,photos) FROM '${path.join(__dirname, 'test.csv')}' CSV HEADER`);
+      await deleteFile();
+      rounds += 1;
+    }
+
+    await client.query('SELECT * FROM galleries WHERE id = 10000000')
       .then(res => {
         console.log('Did I do the thing?');
         console.log(res.rows[0]);
@@ -67,6 +78,7 @@ const client = new Client({
     throw error;
   }
   await client.end();
+
   timeElapsed = (Date.now() - timerStart) / 1000;
   console.log(`time elapased: ${timeElapsed} seconds`);
 })().catch(e => console.error(e));
