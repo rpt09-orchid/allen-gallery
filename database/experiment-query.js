@@ -13,7 +13,7 @@ db.once('open', () => {
   console.log('mongoose connected');
   let t0 = performance.now();
   let t1;
-  Gallery.findByID(10000000, (err, response) => {
+  db.collection("galleries").find({id: 2945382}, (err, response) => {
     if (err) {
       console.log('ERROR', err);
     } else {
