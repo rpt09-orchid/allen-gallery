@@ -3,7 +3,15 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const cors = require('cors');
 const morgan = require('morgan');
-const Gallery = require('../database/models/gallery');
+const { Client } = require('pg');
+
+const client = new Client({
+  user: process.env.PGUSER,
+  host: process.env.PGHOST,
+  database: process.env.PGDATABASE,
+  password: process.env.PGPASSWORD,
+  port: process.env.PGPORT
+});
 
 const app = express();
 
@@ -22,13 +30,20 @@ app.use(express.static(path.join(__dirname, '/../public'), { maxAge: '1y' }));
 app.use('/:id', express.static(path.join(__dirname, '/../public'), { maxAge: '1y' }));
 
 app.get('/photos/:id', (req, res) => {
-  Gallery.findByID(req.params.id, (err, gallery) => {
-    if (err) {
-      res.status(404).json({ error: `ID ${req.params.id} does not exist in database` });
-    } else {
-      res.json({ data: gallery });
+  client.query('SELECT photos FROM galleries g WHERE g.id = $1', [req.params.id])
+  .then(result => {
+    console.log(result.rows[0].photos);
+    const gallery = {
+      id: req.params.id,
+      photos: result.rows[0].photos
     }
-  });
+    res.json({ data: [gallery] })
+  }
+  )
+  .catch(e => console.error(e.stack))
 });
 
-module.exports = app;
+module.exports = {
+  app,
+  client
+};

@@ -1,15 +1,9 @@
-const mongoose = require('mongoose');
-const app = require('./app.js');
+require('dotenv').config();
+const { app, client } = require('./app-PSQL');
 
-mongoose.connect((process.env.MONGODB_URI || 'mongodb://localhost/galleries'), { useCreateIndex: true, useNewUrlParser: true });
-
-const db = mongoose.connection;
-db.on('error', (err) => {
-  console.log('error connecting', err);
-});
-db.once('open', () => {
-  console.log('mongoose connected');
-});
+client.connect()
+  .then(() => console.log('PostgreSQL connected'))
+  .catch(e => console.error('PostgreSQL connection error', e))
 
 const port = process.env.PORT || 3002;
 
