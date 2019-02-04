@@ -14,6 +14,7 @@ const Nav = () => {
       </div>
       <div className="nav-col nav">
         <ul id="menu">
+          <li>Edit Photo</li>
           <li>Become a host</li>
           <li>Help</li>
           <li>Sign up</li>

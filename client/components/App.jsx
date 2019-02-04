@@ -2,6 +2,7 @@ import React from 'react';
 import PhotoGrid from './PhotoGrid/PhotoGrid.jsx';
 import Carousel from './Carousel/Carousel.jsx';
 import Nav from './Nav/Nav.jsx';
+import EditPhotoForm from './EditPhotoForm/EditPhotoForm.jsx';
 import './App.css';
 
 let serviceLocation;
@@ -29,7 +30,8 @@ class App extends React.Component {
           url: ''
         },
       },
-      carouselActive: false
+      carouselActive: false,
+      isEditPhotoClicked: false
     }
   }
 
@@ -84,13 +86,19 @@ class App extends React.Component {
         </div>
       )
     } else {
+      let gridOrForm;
+      if (!this.state.isEditPhotoClicked) {
+        gridOrForm = <PhotoGrid photos={this.state.photos} toggleCarousel={this.toggleCarousel.bind(this)} />
+      } else {
+        gridOrForm = <EditPhotoForm />
+      }
       return (
         <div>
           <div>
             <Nav />
           </div>
           <div>
-            <PhotoGrid photos={this.state.photos} toggleCarousel={this.toggleCarousel.bind(this)} />
+            {gridOrForm}
           </div>
         </div>
       )
