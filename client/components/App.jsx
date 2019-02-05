@@ -97,7 +97,7 @@ class App extends React.Component {
       if (!this.state.isEditPhotoClicked) {
         gridOrForm = <PhotoGrid photos={this.state.photos} toggleCarousel={this.toggleCarousel.bind(this)} />
       } else {
-        gridOrForm = <EditPhotoForm />
+        gridOrForm = <EditPhotoForm handleEditFormClick={this.handleEditFormClick}/>
       }
       return (
         <div>

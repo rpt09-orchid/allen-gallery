@@ -32,7 +32,6 @@ app.use('/:id', express.static(path.join(__dirname, '/../public'), { maxAge: '1y
 app.get('/photos/:id', (req, res) => {
   client.query('SELECT photos FROM galleries g WHERE g.id = $1', [req.params.id])
   .then(result => {
-    console.log(result.rows[0].photos);
     const gallery = {
       id: req.params.id,
       photos: result.rows[0].photos
@@ -41,6 +40,16 @@ app.get('/photos/:id', (req, res) => {
   }
   )
   .catch(e => console.error(e.stack))
+});
+
+app.post('/photos/:id', (req, res) => {
+  let url = req.body.url;
+  res.sendStatus(200);
+  // client.query('UPDATE galleries g SET photos = jsonb_set() WHERE g.id = $1', [req.params.id])
+  // .then(result => {
+
+  // })
+  // .catch(e => console.error(e.stack))
 });
 
 module.exports = {

@@ -2,8 +2,8 @@ import React from 'react';
 import axios from 'axios';
 
 class EditPhotoForm extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       url: ''
     }
@@ -12,7 +12,6 @@ class EditPhotoForm extends React.Component {
   }
 
   handleChange(event) {
-    console
     this.setState({
       url: event.target.value
     });
@@ -23,6 +22,14 @@ class EditPhotoForm extends React.Component {
     let endpoint = `/photos${id}`
     axios.post(endpoint, {
       url: this.state.url
+    })
+    .then(res => {
+      console.log('response', res);
+      this.setState({url: ''});
+      this.props.handleEditFormClick();
+    })
+    .catch(err => {
+      console.log('error', err);
     });
     event.preventDefault();
   }
