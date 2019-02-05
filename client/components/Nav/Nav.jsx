@@ -1,7 +1,7 @@
 import React from 'react';
 import './Nav.css';
 
-const Nav = () => {
+const Nav = ({ handleEditFormClick }) => {
 
   return (
     <div className="nav-grid">
@@ -14,7 +14,7 @@ const Nav = () => {
       </div>
       <div className="nav-col nav">
         <ul id="menu">
-          <li>Edit Photo</li>
+          <li onClick= {handleEditFormClick }>Edit Photo</li>
           <li>Become a host</li>
           <li>Help</li>
           <li>Sign up</li>

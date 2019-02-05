@@ -31,8 +31,9 @@ class App extends React.Component {
         },
       },
       carouselActive: false,
-      isEditPhotoClicked: false
+      isEditPhotoClicked: false,
     }
+    this.handleEditFormClick = this.handleEditFormClick.bind(this)
   }
 
   componentDidMount() {
@@ -68,6 +69,12 @@ class App extends React.Component {
       })
   }
 
+  handleEditFormClick() {
+    this.setState(previousState => {
+      return {isEditPhotoClicked: !previousState.isEditPhotoClicked}
+    });
+  }
+
   toggleCarousel(e) {
     const clickedId = parseInt(e.target.id.slice(5)) - 1;
     this.state.carouselActive ? this.setState({ carouselActive: false, clicked: 1 }) : this.setState({ carouselActive: true, clicked: clickedId });
@@ -95,7 +102,7 @@ class App extends React.Component {
       return (
         <div>
           <div>
-            <Nav />
+            <Nav handleEditFormClick={this.handleEditFormClick} />
           </div>
           <div>
             {gridOrForm}
