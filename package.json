@@ -11,7 +11,7 @@
     "react-dev": "webpack -d --watch",
     "server-dev": "nodemon ./server/server.js",
     "start": "node server/server.js",
-    "start-psql": "nodemon server/server-PSQL.js"
+    "start-psql": "node server/server-PSQL.js"
   },
   "keywords": [],
   "author": "",
