@@ -1,6 +1,5 @@
 import React from 'react';
 import './PrimaryPhoto.css'
-import { PromiseProvider } from 'mongoose';
 
 const PrimaryPhoto = (props) => {
   return (
@@ -10,4 +9,4 @@ const PrimaryPhoto = (props) => {
   )
 }
 
-export default PrimaryPhoto;  
+export default PrimaryPhoto;

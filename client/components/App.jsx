@@ -33,10 +33,15 @@ class App extends React.Component {
       carouselActive: false,
       isEditPhotoClicked: false,
     }
-    this.handleEditFormClick = this.handleEditFormClick.bind(this)
+    this.handleEditFormClick = this.handleEditFormClick.bind(this);
+    this.getPhotos = this.getPhotos.bind(this);
   }
 
   componentDidMount() {
+    this.getPhotos();
+  }
+
+  getPhotos() {
     let id;
     window.location.pathname !== '/' ? id = window.location.pathname : id = '/1';
 
@@ -95,9 +100,9 @@ class App extends React.Component {
     } else {
       let gridOrForm;
       if (!this.state.isEditPhotoClicked) {
-        gridOrForm = <PhotoGrid photos={this.state.photos} toggleCarousel={this.toggleCarousel.bind(this)} />
+        gridOrForm = <PhotoGrid photos={ this.state.photos } toggleCarousel={ this.toggleCarousel.bind(this) } />
       } else {
-        gridOrForm = <EditPhotoForm handleEditFormClick={this.handleEditFormClick}/>
+        gridOrForm = <EditPhotoForm handleEditFormClick={ this.handleEditFormClick } getPhotos={ this.getPhotos }/>
       }
       return (
         <div>

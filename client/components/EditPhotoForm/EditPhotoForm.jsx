@@ -20,12 +20,14 @@ class EditPhotoForm extends React.Component {
   handleSubmit(event) {
     let id = window.location.pathname;
     let endpoint = `/photos${id}`
-    axios.post(endpoint, {
+    axios.put(endpoint, {
       url: this.state.url
     })
     .then(res => {
-      console.log('response', res);
       this.setState({url: ''});
+      this.props.getPhotos();
+    })
+    .then(()=>{
       this.props.handleEditFormClick();
     })
     .catch(err => {

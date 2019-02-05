@@ -42,14 +42,26 @@ app.get('/photos/:id', (req, res) => {
   .catch(e => console.error(e.stack))
 });
 
-app.post('/photos/:id', (req, res) => {
+app.put('/photos/:id', (req, res) => {
   let url = req.body.url;
-  res.sendStatus(200);
-  // client.query('UPDATE galleries g SET photos = jsonb_set() WHERE g.id = $1', [req.params.id])
-  // .then(result => {
-
-  // })
-  // .catch(e => console.error(e.stack))
+  client.query('SELECT photos FROM galleries g WHERE g.id = $1', [req.params.id])
+  .then(result => {
+    let { photos } = result.rows[0];
+    photos[0].location = url;
+    return photos;
+  })
+  .then( photos => {
+    client.query('UPDATE galleries g SET photos = $2 WHERE g.id = $1', [req.params.id, JSON.stringify(photos)])
+    .then(()=> {
+      res.sendStatus(200);
+    })
+    .catch(error=> {
+      res.status(404).send({ error });
+    })
+  })
+  .catch(error => {
+    res.status(404).send({ error });
+  });
 });
 
 module.exports = {
