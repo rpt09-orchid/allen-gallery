@@ -2,6 +2,7 @@ import React from 'react';
 import PhotoGrid from './PhotoGrid/PhotoGrid.jsx';
 import Carousel from './Carousel/Carousel.jsx';
 import Nav from './Nav/Nav.jsx';
+import EditPhotoForm from './EditPhotoForm/EditPhotoForm.jsx';
 import './App.css';
 
 let serviceLocation;
@@ -29,11 +30,18 @@ class App extends React.Component {
           url: ''
         },
       },
-      carouselActive: false
+      carouselActive: false,
+      isEditPhotoClicked: false,
     }
+    this.handleEditFormClick = this.handleEditFormClick.bind(this);
+    this.getPhotos = this.getPhotos.bind(this);
   }
 
   componentDidMount() {
+    this.getPhotos();
+  }
+
+  getPhotos() {
     let id;
     window.location.pathname !== '/' ? id = window.location.pathname : id = '/1';
 
@@ -66,6 +74,12 @@ class App extends React.Component {
       })
   }
 
+  handleEditFormClick() {
+    this.setState(previousState => {
+      return {isEditPhotoClicked: !previousState.isEditPhotoClicked}
+    });
+  }
+
   toggleCarousel(e) {
     const clickedId = parseInt(e.target.id.slice(5)) - 1;
     this.state.carouselActive ? this.setState({ carouselActive: false, clicked: 1 }) : this.setState({ carouselActive: true, clicked: clickedId });
@@ -84,13 +98,19 @@ class App extends React.Component {
         </div>
       )
     } else {
+      let gridOrForm;
+      if (!this.state.isEditPhotoClicked) {
+        gridOrForm = <PhotoGrid photos={ this.state.photos } toggleCarousel={ this.toggleCarousel.bind(this) } />
+      } else {
+        gridOrForm = <EditPhotoForm handleEditFormClick={ this.handleEditFormClick } getPhotos={ this.getPhotos }/>
+      }
       return (
         <div>
           <div>
-            <Nav />
+            <Nav handleEditFormClick={this.handleEditFormClick} />
           </div>
           <div>
-            <PhotoGrid photos={this.state.photos} toggleCarousel={this.toggleCarousel.bind(this)} />
+            {gridOrForm}
           </div>
         </div>
       )
