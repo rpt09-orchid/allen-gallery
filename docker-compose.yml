@@ -1,0 +1,9 @@
+version: '3'
+services:
+  app:
+    build: .
+    depends_on: postgres
+    ports:
+     - "3002:3002"
+  postgres:
+    image: postgres
