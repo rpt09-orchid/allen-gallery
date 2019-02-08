@@ -12,7 +12,7 @@
     "server-dev": "nodemon ./server/server.js",
     "start": "node server/server.js",
     "start-psql": "webpack -p && node server/server-PSQL.js",
-    "docker": "sleep 5 && npm run build && npm run seed-pg && npm run start-psql"
+    "docker": "sleep 3 && npm run build && npm run seed-pg && npm run start-psql"
   },
   "keywords": [],
   "author": "",
