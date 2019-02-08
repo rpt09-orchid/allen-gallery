@@ -9,5 +9,6 @@ RUN npm install
 COPY . .
 
 EXPOSE 3002
-CMD [ "npm", "run", "start-psql" ]
+
+CMD [ "npm", "run", "docker" ]
 
