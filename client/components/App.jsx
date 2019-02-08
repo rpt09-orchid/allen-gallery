@@ -5,7 +5,7 @@ import Nav from './Nav/Nav.jsx';
 import EditPhotoForm from './EditPhotoForm/EditPhotoForm.jsx';
 import './App.css';
 
-let serviceLocation = 'http://localhost:3002';
+let serviceLocation = process.env.SERVICELOCATION;
 
 // process.env.NODE_ENV === 'development' ? serviceLocation = 'http://localhost:3002' : serviceLocation = 'https://firebnb-gallery.herokuapp.com/';
 
