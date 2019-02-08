@@ -5,7 +5,7 @@ import Nav from './Nav/Nav.jsx';
 import EditPhotoForm from './EditPhotoForm/EditPhotoForm.jsx';
 import './App.css';
 
-let serviceLocation = process.env.SERVICELOCATION;
+let serviceLocation = 'http://ec2-13-52-80-152.us-west-1.compute.amazonaws.com:3002';
 
 // process.env.NODE_ENV === 'development' ? serviceLocation = 'http://localhost:3002' : serviceLocation = 'https://firebnb-gallery.herokuapp.com/';
 
@@ -42,8 +42,10 @@ class App extends React.Component {
   }
 
   getPhotos() {
-    let id;
-    window.location.pathname !== '/' ? id = window.location.pathname : id = '/1';
+    let id = '/1';
+    if (window.location.pathname !== '/') {
+      id = window.location.pathname;
+    }
 
     fetch(`${serviceLocation}/photos${id}`)
       .then((res) => {
