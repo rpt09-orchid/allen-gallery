@@ -3,6 +3,7 @@ services:
   app:
     env_file: .env
     build: .
+    image: allenhsiehhr/sdc
     depends_on:
       - db
     links:
