@@ -10,7 +10,7 @@ install:
   - echo "install nothing"
 
 script:
-  - echo "no tests"
+  - echo "no"
 
 after_success:
   - curl https://raw.githubusercontent.com/silinternational/ecs-deploy/master/ecs-deploy | sudo tee -a /usr/bin/ecs-deploy
