@@ -1,0 +1,25 @@
+version: '3'
+services:
+  app:
+    env_file: .env
+    build: .
+    image: allenhsiehhr/sdc
+    depends_on:
+      - db
+    links:
+      - db
+    ports:
+      - "3002:3002"
+    volumes:
+      - app-data:/usr/src/app
+  db:
+    volumes:
+      - ./.sql:/docker-entrypoint-initdb.d/
+      - app-data:/usr/src/app
+    container_name: db
+    image: postgres
+    ports:
+      - "5432:5432"
+
+volumes:
+  app-data:

@@ -18,7 +18,10 @@ class EditPhotoForm extends React.Component {
   }
 
   handleSubmit(event) {
-    let id = window.location.pathname;
+    let id = '/1';
+    if (window.location.pathname !== '/') {
+      id = window.location.pathname;
+    }
     let endpoint = `/photos${id}`
     axios.put(endpoint, {
       url: this.state.url

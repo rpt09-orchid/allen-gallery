@@ -66,6 +66,9 @@ const client = new Client({
       await client.query(`COPY galleries(id,photos) FROM '${path.join(__dirname, 'test.csv')}' CSV HEADER`);
       await deleteFile();
       rounds += 1;
+      if (rounds % 10 === 0) {
+        console.log('Round:', rounds);
+      }
     }
 
     await client.query('SELECT * FROM galleries WHERE id = 10000000')

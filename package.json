@@ -7,11 +7,12 @@
     "seed-mongo": "node ./database/seed-Mongo.js",
     "seed-pg": "node ./database/seed-PSQL.js",
     "test": "jest",
-    "build": "webpack",
+    "build": "webpack -p",
     "react-dev": "webpack -d --watch",
     "server-dev": "nodemon ./server/server.js",
     "start": "node server/server.js",
-    "start-psql": "node server/server-PSQL.js"
+    "start-psql": "webpack -p && node server/server-PSQL.js",
+    "docker": "sleep 3 && npm run build && npm run seed-pg && npm run start-psql"
   },
   "keywords": [],
   "author": "",
