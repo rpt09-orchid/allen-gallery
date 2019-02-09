@@ -1,0 +1,25 @@
+sudo: required
+language: python
+python:
+  - "3.6"
+
+services:
+  - docker
+
+install:
+  - echo "install nothing"
+
+script:
+  - echo "no tests"
+
+after_success:
+  - curl https://raw.githubusercontent.com/silinternational/ecs-deploy/master/ecs-deploy | sudo tee -a /usr/bin/ecs-deploy
+  - sudo chmod +x /usr/bin/ecs-deploy
+  - docker --version
+  - pip install awscli
+  - export PATH=$PATH:$HOME/.local/bin
+  - eval $(aws ecr get-login --region us-west-1 --no-include-email)
+  - docker build -t sdc .
+  - docker tag sdc:latest $ECR_ID.dkr.ecr.us-west-1.amazonaws.com/sdc:latest
+  - docker push $ECR_ID.dkr.ecr.us-west-1.amazonaws.com/sdc:latest
+  - ecs-deploy -c $CLUSTER_NAME -n $SERVICE_NAME -r us-west-1 -i $ECR_ID.dkr.ecr.us-west-1.amazonaws.com/sdc:latest

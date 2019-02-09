@@ -7,6 +7,7 @@ import './App.css';
 
 let serviceLocation = 'http://ec2-13-52-80-152.us-west-1.compute.amazonaws.com:3002';
 
+// note: tell jonathan below is not possible, React doesnt have access to node's process.env
 // process.env.NODE_ENV === 'development' ? serviceLocation = 'http://localhost:3002' : serviceLocation = 'https://firebnb-gallery.herokuapp.com/';
 
 class App extends React.Component {
