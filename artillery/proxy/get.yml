@@ -1,9 +1,9 @@
 config:
   target: 'http://localhost:3000'
   phases:
-    - duration: 30
-      arrivalRate: 100
+    - duration: 1
+      arrivalRate: 1
 scenarios:
   - flow:
     - get:
-        url: "/photos/{{$randomNumber(9000000,10000000)}}"
+        url: "/{{$randomNumber(9000000,10000000)}}"

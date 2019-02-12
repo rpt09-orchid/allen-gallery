@@ -6,6 +6,6 @@ config:
 scenarios:
   - flow:
     - put:
-        url: "/photos/{{$randomNumber(9000000,10000000)}}"
+        url: "/{{$randomNumber(9000000,10000000)}}"
         json:
           url: "https://i.imgur.com/Q5vV8d4.jpg"
