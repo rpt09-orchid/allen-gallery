@@ -26,10 +26,7 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// app.use('/', express.static(path.join(__dirname, '/../public'), { maxAge: '1y' }));
-app.get('/', (req, res) => {
-  res.redirect('/1');
-});
+app.use('/', express.static(path.join(__dirname, '/../public'), { maxAge: '1y' }));
 app.use('/:id', express.static(path.join(__dirname, '/../public'), { maxAge: '1y' }));
 
 app.get('/photos/:id', (req, res) => {
