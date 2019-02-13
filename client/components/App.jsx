@@ -6,7 +6,7 @@ import EditPhotoForm from './EditPhotoForm/EditPhotoForm.jsx';
 import './App.css';
 
 // const serviceLocation = 'http://ec2-13-57-205-149.us-west-1.compute.amazonaws.com:3002';
-const serviceLocation = 'http://localhost:3002';
+// const serviceLocation = 'http://localhost:3002';
 
 class App extends React.Component {
   constructor() {
@@ -46,7 +46,7 @@ class App extends React.Component {
       id = window.location.pathname;
     }
 
-    fetch(`${serviceLocation}/photos${id}`)
+    fetch(`http://ec2-13-57-205-149.us-west-1.compute.amazonaws.com:3002/photos${id}`)
       .then((res) => {
         return res.json();
       })
