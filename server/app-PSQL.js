@@ -15,18 +15,18 @@ const client = new Client({
 
 const app = express();
 
-if (process.env.NODE_ENV === "production") {
-  app.use(morgan('tiny'));
-} else {
-  app.use(morgan('dev'));
-}
+// if (process.env.NODE_ENV === "production") {
+  // app.use(morgan('tiny'));
+// } else {
+  // app.use(morgan('dev'));
+// }
 
 app.use(cors());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// app.use('/', express.static(path.join(__dirname, '/../public'), { maxAge: '1y' }));
+app.use('/', express.static(path.join(__dirname, '/../public'), { maxAge: '1y' }));
 app.use('/:id', express.static(path.join(__dirname, '/../public'), { maxAge: '1y' }));
 
 app.get('/photos/:id', (req, res) => {

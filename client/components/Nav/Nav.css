@@ -19,9 +19,9 @@
 }
 
 .logo {
-  background-image: url("https://s3.us-east-2.amazonaws.com/elasticbeanstalk-us-east-2-785620446758/property_images/logo-png.png");
+  background-image: url("https://s3-us-west-2.amazonaws.com/rpt09-orchid-gallery/logo-png.png");
   background-repeat: no-repeat;
-  background-position: center; 
+  background-position: center;
   background-size: 30px 30px;
   flex-basis: 30px;
   height: 100%;
